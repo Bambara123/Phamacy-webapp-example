@@ -1,0 +1,16 @@
+// $(document).on('click', '.remove-image', function() {
+            //     var carouselItem = $(this).closest('.carousel-item');
+            //     if (carouselItem.hasClass('active') && carouselItem.next('.carousel-item').length) {
+            //         carouselItem.next('.carousel-item').addClass('active');
+            //     } else if (carouselItem.hasClass('active') && carouselItem.prev('.carousel-item').length) {
+            //         carouselItem.prev('.carousel-item').addClass('active');
+            //     }
+            //     carouselItem.remove();
+            //     var files = $('#image')[0].files;
+            //     if (files.length === $('.carousel-item').length) {
+            //         var newFiles = Array.from(files).filter(function(file, index) {
+            //             return index !== carouselItem.index();
+            //         });
+            //         $('#image')[0].files = new FileList(...newFiles);
+            //     }
+            // });

@@ -1,0 +1,22 @@
+body {
+    background-color: #1f1f1f;
+    color: rgb(165, 195, 250);
+}
+.form-container {
+    max-width: 300px;
+    margin: auto;
+    padding-top: 100px;
+}
+.btn-primary {
+    background-color: #0069d9;
+    border-color: #0062cc;
+    
+}
+
+#register{
+    display: none;
+}
+
+.redirect{
+    display: inline-block;
+}
