@@ -9,6 +9,28 @@ use Illuminate\Http\Request;;
 class prescriptionController extends Controller
 {
 
+    public function updateTotalPrice(Request $request)
+    {
+        // validate the request data
+        $validatedData = $request->validate([
+            'total_price' => 'required|numeric',
+            'prescription_id' => 'required|numeric',
+        ]);
+
+        $prescription = Prescriptions::find($validatedData['prescription_id']);
+
+        if ($prescription) {
+            // update the total price
+            $prescription->total_price = $validatedData['total_price'];
+            $prescription->save();
+        }
+
+
+        return redirect()->back();
+    }
+
+
+
     public function createPrescription(Request $request)
     {
         $incomingFields = $request->validate([
