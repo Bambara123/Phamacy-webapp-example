@@ -12,8 +12,10 @@ class Drugs extends Model
 
     protected $fillable = [
         'drug_name',
-        'quantity',
+        'amount',
         'total_price',
+
+
 
     ];
 }

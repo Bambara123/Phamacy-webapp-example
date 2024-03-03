@@ -41,6 +41,6 @@ class UserController extends Controller
             return redirect('/');
         }
 
-        return redirect('/je;');
+        return redirect('/');
     }
 }

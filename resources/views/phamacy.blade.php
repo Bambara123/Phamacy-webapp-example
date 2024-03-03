@@ -19,7 +19,7 @@
             @foreach($prescriptions as $prescription)
             <div class="col-md-4">
                 <a href="/onepres/{{ $prescription->id }}" class="text-decoration-none text-dark">
-                    <div class="card mb-4 border-primary card-element">
+                    <div class="card mb-4 card-element {{ $prescription->status == 'Accepted' ? 'border-success' : ($prescription->status == 'Rejected' ? 'border-danger' : 'border-primary') }}">
                         <div class="card-body">
                             <h5 class="card-title">Prescription ID: {{ $prescription->id }}</h5>
                             <p class="card-text">Status: {{ $prescription->status }}</p>

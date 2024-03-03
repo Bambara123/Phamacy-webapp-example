@@ -2,33 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Prescriptions;
 use App\Models\Images;
-use Illuminate\Http\Request;;
+use App\Mail\HelloMail;
+use Illuminate\Http\Request;
+use App\Models\Prescriptions;
+use Illuminate\Support\Facades\Mail;;
 
 class prescriptionController extends Controller
 {
 
-    public function updateTotalPrice(Request $request)
+    public function rejectQuotation($id)
     {
-        // validate the request data
-        $validatedData = $request->validate([
-            'total_price' => 'required|numeric',
-            'prescription_id' => 'required|numeric',
-        ]);
-
-        $prescription = Prescriptions::find($validatedData['prescription_id']);
-
-        if ($prescription) {
-            // update the total price
-            $prescription->total_price = $validatedData['total_price'];
+        try {
+            $prescription = Prescriptions::findOrFail($id);
+            $prescription->status = 'Rejected';
             $prescription->save();
+
+            return redirect('/');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to reject quotation. Error: ' . $e->getMessage());
         }
-
-
-        return redirect()->back();
     }
 
+    public function acceptQuotation($id)
+    {
+
+        try {
+            $prescription = Prescriptions::findOrFail($id);
+            $prescription->status = 'Accepted';
+            $prescription->save();
+
+            return redirect('/');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to accept quotation. Error: ' . $e->getMessage());
+        }
+    }
 
 
     public function createPrescription(Request $request)
@@ -59,6 +67,6 @@ class prescriptionController extends Controller
             }
         }
 
-        return $prescription;
+        return redirect()->back();
     }
 }

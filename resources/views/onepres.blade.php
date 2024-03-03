@@ -9,38 +9,53 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/onepres.css" rel= "stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 <body>
     <div class="container mt-5">
+        <div class="head-container">
+            <div class="topic">
+                <h1 class="text-center">Check quotation</h1>
+            </div>
+            <div class="icons">
 
-        <div class="topic">
-            <h1>Make Quotetion</h1>
+                <a href="/phamacy">
+                    <button id="icon1" style="background: none; border: none;">
+                        <i class="fa fa-home" style="font-size:30px;color:rgb(165, 195, 250)"></i>
+                    </button>
+                </a>
+                
+            </div>
         </div>
 
         <div class="row">
-
-
-            <div class="col-sm-5 image-show d-flex flex-column align-items-center pt-4 pb-4">
+            <div class="col-sm-5 image-show d-flex flex-column  pt-4 pb-4">
                 <div class="row d-flex flex-column align-items-center">
                     <div class="col-10">
-                        <div class="card mb-4 main-image-container" style="width: 100%; height: 300px; overflow: hidden;">
+                        <div class="card mb-4 main-image-container" style="width: 100%; height: 300px; overflow: visible;">
                             @if ($prescription->images)
-                                <img src="{{ asset('images/' . $prescription->images[0]->name) }}" class="card-img-top main-image" alt="Large Image" style="object-fit: cover; width: 100%; height: 100%;">
+                                <img src="{{ asset('images/' . $prescription->images[0]->name) }}" class="card-img-top main-image" alt="Large Image" style="width: 100%; height: 100%; transition: transform 0.3s ease-in-out;">
                             @endif
                         </div>
                     </div>  
                 </div>
-            
-                <div class="row d-flex justify-content-center">
-                    @if ($prescription->images)
-                        @foreach ($prescription->images as $image)
-                            <div class="col-2">
-                                <img src="{{ asset('images/' . $image->name) }}" class="img-thumbnail thumbnail" alt="Thumbnail" style="object-fit: cover; width: 100%; height: 100%;">
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
+
+                <style>
+                    .main-image:hover {
+                        transform: scale(1.3);
+                    }
+                </style>
+               
+      <div class="row d-flex justify-content-center">
+                @if ($prescription->images)
+                    @foreach ($prescription->images as $image)
+                        <div class="col-2">
+                            <img src="{{ asset('images/' . $image->name) }}" class="img-thumbnail thumbnail" alt="Thumbnail" style="object-fit: cover; width: 100%; height: 80%;">
+                        </div>
+                    @endforeach
+                @endif
+            </div>
             </div>
             <script>
                 document.querySelectorAll('.thumbnail').forEach(function(thumbnail) {
@@ -49,20 +64,11 @@
                     });
                 });
 
-                var mainImage = document.querySelector('.main-image');
-                mainImage.addEventListener('mouseover', function() {
-           
-       
-                    mainImage.style.zIndex = '3';
-                });
-                mainImage.addEventListener('mouseout', function() {
-                    mainImage.style.transform = 'scale(1)';
-                });
             </script>
 
         {{-- card element --}}
         <div class="col-sm-7 details mt-4 mt-sm-0">
-            <div class="card">
+            <div class="card card-comp">
                 <div class="card-body">
                   
                     <div class="row mb-3">
@@ -71,20 +77,17 @@
                         <div class="col-3 text-end"><strong>Amount</strong></div>
                     </div>
 
-                    <div class="row mb-4 ">
-                        <div class="col-5 drug" >MiDLMFDSF</div>
-                        <div class="col-4 quantity" >343SDV</div>
-                        <div class="col-3 text-end total_price_1">200 LKR</div>
-                    </div>
+                    
+                </div>
+            </div>
+            <div class="row mt-4">
+                <form>
 
                     <div class="d-flex flex-row justify-content-between">
                         <p class="font-weight-bold">Total Price</p>
                         <p id="total_price">0 LKR</p>
                     </div>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <form>
+
                     <div class="mb-3 row">
                         <label for="drug" class="col-sm-4 col-form-label">Drug</label>
                         <div class="col-sm-6 ms-auto">
@@ -94,10 +97,10 @@
                     <div class="mb-3 row">
                         <label for="quantity" class="col-sm-4 col-form-label">Quantity</label>
                         <div class="col-sm-6 ms-auto">
-                            <input type="number" class="form-control" id="quantity" placeholder="Enter quantity">
+                            <input type="number" class="form-control" id="quantity" min="0" placeholder="Enter quantity">
                         </div>
                     </div>
-                    <button type="submit"  id="add-button" class="btn btn-primary ms-auto">Add</button>
+                    <button type="submit"  id="add-button" class="btn btn-outline-primary ms-auto">Add To List</button>
                 </form>
             </div> 
      
@@ -107,8 +110,8 @@
         <script>    
         
             var drugValues = {
-                'Drug1': 100, 
-                'Drug2': 200,
+                'Amoxillin': 20, 
+                'Paracetamol': 50,
                 
             };
 
@@ -151,8 +154,8 @@
 
             p.textContent = total + ' LKR';
 
-            var total_price_input = document.getElementById('total_price_input');
-            total_price_input.value = total;
+            document.getElementById('drug').value = '';
+            document.getElementById('quantity').value = '';
 
 
         });
@@ -162,26 +165,42 @@
         <div class="row line mt-4">
         </div>
 
-        <form id="quotation-form" action="/updatePrescriptions" method="POST">
+        <form id="quotation-form" >
 
             @csrf
             <input type="hidden" id="total_price_input" name="total_price">
             <input type="hidden" name="prescription_id" value="{{ $prescription->id }}">
             <div class="row d-flex justify-content-end">
+
+  
+                <div class="col-9 ">
+                    
+                    <p><strong>Address:</strong> {{$prescription->address}}</p>
+                    <p><strong>Note:</strong> {{ $prescription->note }}</p>
+                </div>
+               
                 <div class="col-3 d-flex justify-content-end">
-                    <button type="submit" id="submit-button" class="btn btn-primary mt-1 mb-4">Submit</button>
+                    <button type="submit" id="submit-button" class="btn btn-outline-primary mt-1 mb-4">Send Quotation</button>
                 </div>
                 
             </div>
 
+           
+
         </form>
+
+
+        <div class="row line mt-2">
+        </div>
 
         <script>document.getElementById('submit-button').addEventListener('click', function(event) {
             event.preventDefault();
         
+
             var drugElements = document.getElementsByClassName('drug');
             var quantityElements = document.getElementsByClassName('quantity');
             var total_price_1s = document.getElementsByClassName('total_price_1');
+            var total_price = document.getElementById('total_price'); 
         
             var medicines = [];
         
@@ -198,20 +217,20 @@
                     total_price : total_price_1
                 });
             }
-        
+
+            console.log("hello");
+            var tot = total_price.textContent;
+
             var requestBody = {
                 prescription_id: "{{ $prescription->id }}",
-                total_price: document.getElementById('total_price_input').value,
-                medicines: medicines
+                medicines: medicines,
+                tot_price: tot
             };
-
-            console.log(requestBody);
         
             fetch('/createDrugs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Add Laravel CSRF token header
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
                 body: JSON.stringify(requestBody)
@@ -219,6 +238,7 @@
                 if (response.ok) {
                     // Handle successful submission
                     console.log('Submission successful');
+                    window.location.href = '/phamacy';
                 } else {
                     // Handle errors
                     console.log('Submission failed');
