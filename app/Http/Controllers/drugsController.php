@@ -15,6 +15,8 @@ class drugsController extends Controller
     public function createDrugs(Request $request)
     {
 
+
+        // add data to drugs table and update the prescription status 
         $incomingFields = $request->validate([
             'prescription_id' => 'required',
             'medicines' => 'required',
@@ -25,9 +27,8 @@ class drugsController extends Controller
 
         $user_id = $prescription->user_id;
 
+        //  get the email of use_id.
         $email  = User::find($user_id)->email;
-
-
 
         if ($prescription) {
             // update the total price
@@ -37,15 +38,19 @@ class drugsController extends Controller
         }
 
 
+        // add data to drugs table
+
         foreach ($incomingFields['medicines'] as $medicine) {
             $drug = new Drugs;
             $drug->prescription_id = $incomingFields['prescription_id'];
-            $drug->drug_name = $medicine['name']; // assuming 'name' is a field in your Drugs model
-            $drug->amount = $medicine['quantity']; // assuming 'quantity' is a field in your Drugs model
-            $drug->total_price = $medicine['total_price']; // assuming 'total_price' is a field in your Drugs model
+            $drug->drug_name = $medicine['name'];
+            $drug->amount = $medicine['quantity'];
+            $drug->total_price = $medicine['total_price'];
             $drug->save();
         }
 
+
+        // send email to user
         Mail::to($email)->send(new HelloMail());
 
         return redirect('/');

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Mail;;
 class prescriptionController extends Controller
 {
 
+    // Rejected quotation
+
     public function rejectQuotation($id)
     {
         try {
@@ -24,6 +26,7 @@ class prescriptionController extends Controller
         }
     }
 
+    // Accept quotation
     public function acceptQuotation($id)
     {
 
@@ -50,6 +53,8 @@ class prescriptionController extends Controller
         $incomingFields['note'] = strip_tags($incomingFields['note']);
         $incomingFields['address'] = strip_tags($incomingFields['address']);
         $incomingFields['user_id'] = auth()->id();
+
+        // update the prescription table.
 
         $prescription = Prescriptions::create($incomingFields);
 

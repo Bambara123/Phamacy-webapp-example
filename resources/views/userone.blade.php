@@ -21,6 +21,9 @@
             </div>
             <div class="icons">
 
+
+                {{-- head section --}}
+
                 <a href="/">
                     <button id="icon1" style="background: none; border: none;">
                         <i class="fa fa-home" style="font-size:30px;color:rgb(165, 195, 250)"></i>
@@ -41,6 +44,8 @@
         </div>
 
         <div class="row">
+
+            {{-- image preview for user --}}
 
 
             <div class="col-sm-5 image-show d-flex flex-column align-items-center pt-4 pb-4 mt-sm-0">
@@ -83,6 +88,8 @@
             </script>
 
         {{-- card element --}}
+
+
         <div class="col-sm-7 details mt-4 mt-sm-0">
             <div class="card card-comp">
                 <div class="card-body">
@@ -105,7 +112,7 @@
                 </div>
             </div>
 
-
+            {{-- quotation detaials --}}
             <div class="d-flex flex-row justify-content-between">
                 <p class="font-weight-bold">Total Price</p>
                 <p id="total_price">{{$prescription->total_price}}</p>
@@ -128,9 +135,8 @@
         <div class="row line mt-4">
         </div>
 
-
-
-          
+        {{-- buttons for accept and reject --}}
+        
             <div class="row d-flex justify-content-end">
                 <div class="col-sm-4 d-flex justify-content-between">
 

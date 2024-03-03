@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Image Viewer</title>
-    <!-- Bootstrap CSS -->
     
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/onepres.css" rel= "stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -28,6 +28,9 @@
                 
             </div>
         </div>
+
+
+        {{-- Image element -  left part --}}
 
         <div class="row">
             <div class="col-sm-5 image-show d-flex flex-column  pt-4 pb-4">
@@ -108,19 +111,23 @@
         </div>
 
         <script>    
-        
+
+            // Created drug and its values, We can make a seperate database for this if needed.
+
             var drugValues = {
                 'Amoxillin': 20, 
                 'Paracetamol': 50,
                 
             };
 
+            // Appending entries to table
+
             document.getElementById('add-button').addEventListener('click', function(event) {
             event.preventDefault();
 
             var drug = document.getElementById('drug').value;
             var quantity = parseInt(document.getElementById('quantity').value);
-            var amount = drugValues[drug] * quantity;  // Replace this with your amount calculation
+            var amount = drugValues[drug] * quantity;  
 
             var cardBody = document.querySelector('.card-body');
 
@@ -193,7 +200,11 @@
         <div class="row line mt-2">
         </div>
 
-        <script>document.getElementById('submit-button').addEventListener('click', function(event) {
+        <script>
+            
+            // Sending the data to the backend,  update the drugs and the total price in the database
+
+        document.getElementById('submit-button').addEventListener('click', function(event) {
             event.preventDefault();
         
 

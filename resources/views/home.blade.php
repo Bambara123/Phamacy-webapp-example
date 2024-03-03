@@ -38,10 +38,10 @@
         </div>
     
         <div class="row">
+
+            {{-- Image show --}}
     
             <div class="col-sm-6">
-
-
                 <div class="mx-auto" style="width: 100%;">
                     <div id="carouselExample" class="carousel slide carousel23 p-3" style="width: 100%; height: 400px;">
                         <div class="carousel-inner d-flex align-items-center" style="height: 100%;">
@@ -62,6 +62,8 @@
                 
             
             </div>
+
+            {{-- Right half the form for user --}}
             <div class="col-sm-6">
                 <div class="row mt-3">
                     <div class="col">
@@ -109,6 +111,9 @@
     </div>
     
     <script>
+
+        // JS for image preview, Update the carousel with the new images
+
         $(document).ready(function() {
             $('#images').on('change', function() {
                 var files = $('#images')[0].files;
@@ -117,8 +122,7 @@
                     alert('You can only upload a maximum of 5 images');
                     return;
                 }
-        
-                // $('.carousel-inner').empty();
+
                 for (var i = 0; i < files.length; i++) {
                     console.log(files.length, i);
                     var reader = new FileReader();
@@ -146,8 +150,12 @@
 
     @else  
 
+    {{-- if user is authorized --}}
+
     <div class="container">
         <div class="form-container" id = "login">
+
+            {{--  Login form --}}
             <form action="/login" method="post">
 
                 @csrf
@@ -174,6 +182,8 @@
 
 
         <div class="form-container" id = "register">
+
+            {{-- Register form --}}
             <form action="/register" method="post">
                 @csrf
                 <h2 class="text-center">Register</h2>

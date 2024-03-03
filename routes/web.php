@@ -19,6 +19,8 @@ use App\Models\Drugs;
 |
 */
 
+// Home page
+
 Route::get('/', function () {
     $user = Auth::user(); // Get the currently authenticated user
 
@@ -31,6 +33,8 @@ Route::get('/', function () {
     return view('home', ['prescriptions' => $prescriptions]);
 });
 
+// Pharmacy page -  for phamacy to view all prescriptions
+
 Route::get('/phamacy', function () {
     $prescriptions = Prescriptions::orderByRaw("FIELD(status, 'Accepted', 'Pending Quotation', 'Quotation Available','Rejected')")
         ->get();
@@ -39,22 +43,21 @@ Route::get('/phamacy', function () {
 });
 
 
+// Single prescription page - pharmacy
+
 Route::get('/onepres/{id}', function ($id) {
     $prescription = Prescriptions::with('images')->findOrFail($id);
 
     return view('onepres', ['prescription' => $prescription]);
 });
 
+// User view prescription status
+
 Route::get('/userone/{id}', function ($id) {
     $prescription = Prescriptions::with('images')->findOrFail($id);
     $medicines = Drugs::where('prescription_id', $id)->get();
 
     return view('userone', ['prescription' => $prescription,  'medicines' => $medicines]);
-});
-
-Route::get('/boots', function () {
-
-    return view('boots');
 });
 
 // user  
